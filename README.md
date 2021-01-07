@@ -28,7 +28,7 @@ Note that this build is not using Power over Ethernet (PoE). You can choose to p
 | [(optional) Command medium picture hanging strips](https://www.amazon.co.uk/gp/product/B00LW1APOC/) | 1 | £7 | A clean, reversible way of sticking the Pi stack and power brick to the ethernet switch. Not necessarily the prettiest, but does the job and can easily be undone |
 | | TOTAL | £350.5
 
-Here is a photo of the final product for reference (ethernet connection from switch to router not shown, nor is the mains power cable.)
+Here is a photo of the final product for reference (ethernet connection from switch to router not shown, nor are the mains power cables for the switch and power brick.)
 
 <!-- ![Pi cluster photo](./images/pi-cluster.jpeg) -->
 
