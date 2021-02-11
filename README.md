@@ -33,7 +33,7 @@ Here is a photo of the final product for reference (ethernet connection from swi
 <!-- ![Pi cluster photo](./images/pi-cluster.jpeg) -->
 
 <p align="center">
-<img src="images/pi-cluster.jpeg" alt="Pi cluster photo" width="500" />
+<img src="https://github.com/acse-ogb119/Pi-HPC-cluster/blob/master/images/pi-cluster.jpeg" alt="Pi cluster photo" width="500" />
 </p>
 
 
