@@ -30,14 +30,7 @@ Note that this build is not using Power over Ethernet (PoE). You can choose to p
 
 Here is a photo of the final product for reference (ethernet connection from switch to router not shown, nor are the mains power cables for the switch and power brick.)
 
-<!-- ![Pi cluster photo](./images/pi-cluster.jpeg) -->
-
-<p align="center">
-<img src="https://github.com/acse-ogb119/Pi-HPC-cluster/blob/master/images/pi-cluster.jpeg" alt="Pi cluster photo" width="500" />
-</p>
-
+![pi-cluster](https://user-images.githubusercontent.com/56110893/116722168-fe080a00-a9d5-11eb-837d-0a40c440750f.jpeg)
 
 ## Change log
 [05/01/2021] Added list of hardware and components.
-
-
