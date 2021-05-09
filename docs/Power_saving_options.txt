@@ -1,0 +1,12 @@
+/usr/bin/tvservice -o		turn off hdmi port (symlink)
+/opt/vc/bin/tvservice -o	"" (actual)
+
+[add to /boot/config.txt]
+dtoverlay=disable-bt		disable bluetooth
+dtoverlay=disable-wifi		disable wifi
+https://raspberrytips.com/disable-wifi-raspberry-pi/
+
+echo '1-1' | sudo tee /sys/bus/usb/drivers/usb/unbind
+
+
+https://www.raspberrypi.org/forums/viewtopic.php?t=257144

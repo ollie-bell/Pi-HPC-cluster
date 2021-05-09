@@ -1,0 +1,7 @@
+HPC Build
+---------
+
+CentOS Linux (Red Hat Enterprise Linux) operating system
+PBS Pro / OpenPBS / TORQUE job scheduler OR SLURM job scheduler
+Environment Modules
+

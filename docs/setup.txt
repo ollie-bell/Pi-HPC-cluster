@@ -1,0 +1,84 @@
+*************************************************************************
+SD Card setup
+*************************************************************************
+
+1. Download RPi Imager from https://downloads.raspberrypi.org/imager/imager_1.5_amd64.deb
+2. Insert SD card and open Imager
+3. Choose OS --> Erase (Format as FAT32) && Choose SD Card && WRITE
+4. Choose OS --> Raspberry Pi OS (other) --> Raspberry Pi OS Lite (32-bit) && Choose SD Card && WRITE
+5. Add an empty file named `ssh` to the boot partition
+6. Edit and copy wpa_supplicant.conf to the boot partition
+
+	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+	update_config=1
+	country=<Insert 2 letter ISO 3166-1 country code here>
+
+	network={
+	 ssid="<Name of your wireless LAN>"
+	 psk="<Password for your wireless LAN>"
+	}
+
+7. Copy setup scripts to rootfs/home/pi
+8. Unmount SD card, insert into the Pi and power on.
+9. Search for the Pi's IP address (e.g. using nmap) and connect using `ssh pi@<ip address>` (default password is raspberry)
+
+
+*************************************************************************
+MPI setup
+*************************************************************************
+
+1. install MPI on each of the Pi's 
+	(see dropbox instructions)
+
+2. edit hostnames of each of the Pi's using e.g. using `sudo raspi-config` or by editing `/etc/hostname` and `/etc/hosts`
+	e.g. master00, slave01, slave02, slave03 ... etc
+
+3. generate ssh key on each of the pi's
+	`ssh-keygen -t rsa -C "pi@$(hostname)"` 
+
+4. Copy the public ssh key from the master into authorized hosts of slave pi's
+	ssh-copy-id pi@<ip address of slave01>
+	ssh-copy-id pi@<ip address of slave02>
+	ssh-copy-id pi@<ip address of slave03>
+        ...
+	etc
+
+5. Similarly, copy the public ssh keys from each of the slave pi's to the master
+
+	
+6. On the master pi create a file `~/hostfile` and add the ip addresses of all the pi's, one per 
+	line. Save and close the file
+
+7. Run `mpiexec --hostfile ~/hostfile hostname` to test MPI is working. This should print out the 
+	hostname for each pi 4 times (since each pi has 4 processors)
+
+#TODO
+... SET UP SSH HOSTNAME ALIASES ?? 
+... HOW DO I ACCESS PI'S WITH THEIR HOSTNAME RATHER THAN IP ADDRESS ?? 
+... STATIC IP ADDRESSES ?? 
+
+
+*************************************************************************
+NFS setup
+*************************************************************************
+
+1. On the master node, run
+	sudo apt install nfs-common nfs-kernel-server
+	sudo mkdir /ephemeral
+	sudo chown pi:pi /ephemeral/
+	sudo rpcbind start
+	sudo update-rc.d rpcbind enable
+	echo "/ephemeral 192.168.1.0/24(rw,sync)" | sudo tee -a /etc/exports
+	sudo service nfs-kernel-server restart
+
+  ... add this last command to `/etc/rc.local` before `exit 0` on the last line
+	sed '$i sudo service nfs-kernel-server restart\n' rc.local
+
+2. On each the slave node's, run
+	sudo apt install nfs-common
+	sudo mkdir /ephemeral
+	sudo chown pi:pi /ephemeral/
+	sudo mount <ip of master node>:/ephemeral /ephemeral
+
+#TODO
+... fstab automatic drive mounting on slave nodes
